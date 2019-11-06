@@ -14,6 +14,16 @@ import cpp_epochs as cep
 import nker_epochs as kep
 import nems.epoch as ne
 
+'''
+The purpose of this script is to format a NEMS Context Probe Pair recording, and eventually any recording into
+a format designed for use in a machine learning paradig.
+The main task of the script is to transform the epoch data frame into label to be fed into a machine learning 
+algorithm. 
+In the particular case of Context Probe Pairs, these labels are the identiti of the context of probe asociated
+with a neural response. However this code should be extended to be capable of transforming any arbitrary epoch or
+group of epochs int tags
+'''
+
 
 
 # get the data, formats as appropiate
@@ -121,17 +131,3 @@ for cont_probe, first_inner in accuracy_dict.items():
     for train_test, second_inner in first_inner.items():
         for real_shuffle, accuracy  in second_inner.items():
             print('{}, {} {} accuracy: {:.2f}%'.format(cont_probe, train_test, real_shuffle, accuracy[1]*100))
-
-
-
-
-
-######################
-#
-# for c_p in ['context', 'probe']:
-#     new_eps = cep.rename_into_part(rec.epochs, context_or_probe=c_p)
-#     rec['resp'].epochs = new_eps
-#
-#     # transform epochs into vector over time
-#     context_epochs = ne.epoch_names_matching(rec.epochs, r'\AC\d$')
-#     # masked = kep.make_multiepoch_mask(rec, context_epochs)
